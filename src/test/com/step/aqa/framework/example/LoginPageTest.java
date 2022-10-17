@@ -1,42 +1,31 @@
 package com.step.aqa.framework.example;
 
+import com.codeborne.selenide.WebDriverRunner;
 import com.step.aqa.framework.example.service.LoginPageService;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static com.codeborne.selenide.Selenide.open;
 
 public class LoginPageTest {
 
     private LoginPageService loginPageService = new LoginPageService();
 
-    public static void main(String[] args) {
-        LoginPageTest test = new LoginPageTest();
-        test.checkLoginButton();
-        test.checkLoginField();
-        test.checkPasswordField();
-        test.checkRecoverPaswword();
-        test.checkLanguageElement();
-        test.checkTitleLanguageElement();
+    @BeforeEach
+    public void openSite() {
+        System.setProperty("webdriver.chrome.driver", "src//test//resources//chromedriver.exe");
+        System.setProperty("selenide.browser", "Chrome");
+        open("https://logbook.itstep.org/login/index#/");
     }
 
-    public void checkPasswordField () {
-        loginPageService.getLoginPage().getLoginFormBlock().showPasswordFieldElementSelector();
-    }
-
-    public void checkLoginField () {
-        loginPageService.getLoginPage().getLoginFormBlock().showLoginFieldElementSelector();
-    }
-
-    public void checkLoginButton () {
-        loginPageService.getLoginPage().getLoginFormBlock().showLoginButtonElementSelector();
-    }
-
-    public void checkRecoverPaswword () {
-        loginPageService.getLoginPage().getLoginFormBlock().showRecoverPasswordElementSelector();
-    }
-
-    public void checkLanguageElement () {
-        loginPageService.getLoginPage().getLanguageBlock().showLanguageElementSelector();
-    }
-
-    public void checkTitleLanguageElement () {
-        loginPageService.getLoginPage().getLanguageBlock().showTitleLanguageElementSelector();
+    @Test
+    public void loginVerify () throws InterruptedException {
+        loginPageService.getLoginPage().getLoginFormBlock().getLoginFieldElement().elementSelector.setValue("login");
+        loginPageService.getLoginPage().getLoginFormBlock().getPasswordFieldElement().elementSelector.setValue("password");
+        loginPageService.getLoginPage().getLoginFormBlock().getLoginButtonElement().elementSelector.click();
+        Thread.sleep(1000);
+        Assertions.assertEquals("https://logbook.itstep.org/#/", WebDriverRunner.url());
     }
 }

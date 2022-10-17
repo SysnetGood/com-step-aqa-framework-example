@@ -7,11 +7,13 @@ import com.step.aqa.framework.example.page.block_interface.login.language_elemen
 import com.step.aqa.framework.example.page.element.login.language_element.LanguageElement;
 import com.step.aqa.framework.example.page.element.login.language_element.TitleLanguageElement;
 
+import static com.codeborne.selenide.Selenide.$;
+
 @Block(blockName = "Language login block")
 public class LanguageBlock extends BaseBlock implements HasLanguageElement, HasTitleLanguageElement {
 
-    private LanguageElement languageElement = new LanguageElement("selector for language");
-    private TitleLanguageElement titleLanguageElement = new TitleLanguageElement("selector for title language");
+    private LanguageElement languageElement = new LanguageElement($(""));
+    private TitleLanguageElement titleLanguageElement = new TitleLanguageElement($(""));
 
     @Override
     public LanguageElement getLanguageElement() {

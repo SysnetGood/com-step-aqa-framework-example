@@ -10,14 +10,17 @@ import com.step.aqa.framework.example.page.element.login.LoginButtonElement;
 import com.step.aqa.framework.example.page.element.login.LoginFieldElement;
 import com.step.aqa.framework.example.page.element.login.PasswordFieldElement;
 import com.step.aqa.framework.example.page.element.login.RecoverPasswordElement;
+import org.openqa.selenium.By;
+
+import static com.codeborne.selenide.Selenide.$;
 
 @Block(blockName = "Login form block")
 public class LoginFormBlock extends BaseBlock implements HasLoginButtonElement, HasLoginFieldElement, HasPasswordFieldElement, HasRecoverPasswordElement {
 
-    private LoginButtonElement loginButtonElement = new LoginButtonElement("selector for Login Button");
-    private LoginFieldElement loginFieldElement = new LoginFieldElement("selector for Login input");
-    private PasswordFieldElement passwordFieldElement = new PasswordFieldElement("selector for Password input");
-    private RecoverPasswordElement recoverPasswordElement = new RecoverPasswordElement("selector for recover link");
+    private LoginButtonElement loginButtonElement = new LoginButtonElement($(By.name("action")));
+    private LoginFieldElement loginFieldElement = new LoginFieldElement($(By.id("login")));
+    private PasswordFieldElement passwordFieldElement = new PasswordFieldElement($(By.id("password")));
+    private RecoverPasswordElement recoverPasswordElement = new RecoverPasswordElement($(""));
 
     @Override
     public LoginButtonElement getLoginButtonElement() {
